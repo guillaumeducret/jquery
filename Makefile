@@ -33,6 +33,7 @@ BASE_FILES_NODOM = ${SRC_DIR}/core.js\
 	${SRC_DIR}/support.nodom.js\
 	${SRC_DIR}/ajax.js\
 	${SRC_DIR}/ajax/xhr.js\
+	${SRC_DIR}/ajax.nodom.js
 
 MODULES = ${SRC_DIR}/intro.js\
 	${BASE_FILES}\
