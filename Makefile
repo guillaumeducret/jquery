@@ -28,12 +28,23 @@ BASE_FILES = ${SRC_DIR}/core.js\
 	${SRC_DIR}/offset.js\
 	${SRC_DIR}/dimensions.js
 
+BASE_FILES_NODOM = ${SRC_DIR}/core.js\
+	${SRC_DIR}/deferred.js\
+	${SRC_DIR}/ajax.js\
+	${SRC_DIR}/ajax/xhr.js\
+
 MODULES = ${SRC_DIR}/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/outro.js
 
+MODULES_NODOM = ${SRC_DIR}/intro.nodom.js\
+	${BASE_FILES_NODOM}\
+	${SRC_DIR}/outro.js
+
 JQ = ${DIST_DIR}/jquery.js
 JQ_MIN = ${DIST_DIR}/jquery.min.js
+JQ_NODOM = ${DIST_DIR}/jquery.nodom.js
+JQ_NODOM_MIN = ${DIST_DIR}/jquery.nodom.min.js
 
 SIZZLE_DIR = ${SRC_DIR}/sizzle
 
@@ -60,6 +71,17 @@ ${JQ}: ${MODULES} | ${DIST_DIR}
 		sed 's/}...jQuery..;//' | \
 		sed 's/@DATE/'"${DATE}"'/' | \
 		${VER} > ${JQ};
+		
+jquery-nodom: ${JQ_NODOM}
+
+${JQ_NODOM}: ${MODULES_NODOM} | ${DIST_DIR}
+	@@echo "Building" ${JQ_NODOM}
+
+	@@cat ${MODULES_NODOM} | \
+		sed 's/.function..jQuery...{//' | \
+		sed 's/}...jQuery..;//' | \
+		sed 's/@DATE/'"${DATE}"'/' | \
+		${VER} > ${JQ_NODOM};
 
 ${SRC_DIR}/selector.js: ${SIZZLE_DIR}/sizzle.js
 	@@echo "Building selector code from Sizzle"
@@ -73,7 +95,17 @@ lint: jquery
 		echo "You must have NodeJS installed in order to test jQuery against JSLint."; \
 	fi
 
+lint-nodom: jquery-nodom
+	@@if test ! -z ${JS_ENGINE}; then \
+		echo "Checking jQuery against JSLint..."; \
+		${JS_ENGINE} build/jslint-check.js; \
+	else \
+		echo "You must have NodeJS installed in order to test jQuery against JSLint."; \
+	fi
+
 min: jquery ${JQ_MIN}
+
+min-nodom: jquery-nodom ${JQ_MIN_NODOM}
 
 ${JQ_MIN}: ${JQ}
 	@@if test ! -z ${JS_ENGINE}; then \
@@ -84,7 +116,16 @@ ${JQ_MIN}: ${JQ}
 	else \
 		echo "You must have NodeJS installed in order to minify jQuery."; \
 	fi
-	
+
+${JQ_NODOM_MIN}: ${JQ_NODOM}
+	@@if test ! -z ${JS_ENGINE}; then \
+		echo "Minifying jQuery-noDom" ${JQ_NODOM_MIN}; \
+		${COMPILER} ${JQ_NODOM} > ${JQ_NODOM_MIN}.tmp; \
+		${POST_COMPILER} ${JQ_NODOM_MIN}.tmp > ${JQ_NODOM_MIN}; \
+		rm -f ${JQ_NODOM_MIN}.tmp; \
+	else \
+		echo "You must have NodeJS installed in order to minify jQuery-noDom."; \
+	fi
 
 clean:
 	@@echo "Removing Distribution directory:" ${DIST_DIR}
