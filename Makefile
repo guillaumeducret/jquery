@@ -105,7 +105,7 @@ lint-nodom: jquery-nodom
 
 min: jquery ${JQ_MIN}
 
-min-nodom: jquery-nodom ${JQ_MIN_NODOM}
+jquery-nodom-min: jquery-nodom ${JQ_MIN_NODOM}
 
 ${JQ_MIN}: ${JQ}
 	@@if test ! -z ${JS_ENGINE}; then \
