@@ -30,6 +30,7 @@ BASE_FILES = ${SRC_DIR}/core.js\
 
 BASE_FILES_NODOM = ${SRC_DIR}/core.js\
 	${SRC_DIR}/deferred.js\
+	${SRC_DIR}/support.nodom.js\
 	${SRC_DIR}/ajax.js\
 	${SRC_DIR}/ajax/xhr.js\
 

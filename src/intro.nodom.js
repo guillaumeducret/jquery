@@ -13,11 +13,13 @@
  *
  * Date: @DATE
  */
-(function( window, undefined ) {
 
 // Fake the minimal browser API required by jQuery so that we can use a subset of jQuery in DOM-less contexts
-window = window || this;
-window.document = window.document || {};
+var global = this;
+global.window = global.window || global;
+global.window.document = global.window.document || {};
+
+(function( window, undefined ) {
 
 // Use the correct document accordingly with window argument (sandbox)
 var document = window.document,
