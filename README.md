@@ -11,6 +11,8 @@ Most of the instructions below remain relevant.
 
 To build your own version of the jquery-nodom version, run `make jquery-nodom` or `make jquery-nodom-min`.
 
+*Download a test version at:* https://github.com/downloads/kpozin/jquery-nodom/jquery.nodom.js
+
 
 [jQuery](http://jquery.com/) - New Wave JavaScript
 ==================================================
