@@ -1,3 +1,19 @@
+jQuery - No DOM Edition
+=======================
+
+This is a small subset of the jQuery library intended for use in Web Worker contexts, where most of the browser API
+does not exist.
+
+This is achieved primarily by modifying jQuery build instructions (Makefile) to only include the non-DOM modules.
+I am avoiding modifying the actual module files, so for now, there will be some DOM-specific code left over.
+
+Most of the instructions below remain relevant.
+
+To build your own version of the jquery-nodom version, run `make jquery-nodom` or `make jquery-nodom-min`.
+
+**Download a test version at:** https://github.com/downloads/kpozin/jquery-nodom/jquery.nodom.js
+
+
 [jQuery](http://jquery.com/) - New Wave JavaScript
 ==================================================
 
