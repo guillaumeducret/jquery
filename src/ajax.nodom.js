@@ -1,5 +1,12 @@
 (function( jQuery ) {
 
-    jQuery.ajaxSettings.global = false;
+function createStandardXHR() {
+	try {
+		return nodom.XMLHttpRequest();
+	} catch (e) {
+	}
+}
+
+jQuery.ajaxSettings.global = false;
 
 })( jQuery );
